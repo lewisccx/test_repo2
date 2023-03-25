@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="jenkins-cicd-projectFlow" doc:id="1d3eac2b-2955-472e-9bc8-1ed5f365a296" >
+		<http:listener doc:name="Listener" doc:id="cdebfad1-60dd-47ed-99c2-79737a0546da" config-ref="HTTP_Listener_config" path="/order" allowedMethods="GET"/>
+		<ee:transform doc:name="success response" doc:id="f0390378-f9ac-4738-959c-0439fae8c929" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "title": "item1, item2, item3",
+  "price": "321321",
+  "purchased_date": "2020-10-10",
+  "created_by": "Henry Soh",
+  "_id": {
+    "\$oid": "6226f0d478b3017c93ef3ad9"
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

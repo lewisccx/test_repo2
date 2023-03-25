@@ -1,0 +1,5 @@
+http:
+  port: "8081"
+  timeout: "30000"
+  base:
+    path: "/api"
